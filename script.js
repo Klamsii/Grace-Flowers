@@ -309,40 +309,49 @@
   }
 
   /* -------------------------------------------------------
-     SMOOTH SCROLL (enhanced momentum for scene-main)
+     SCROLL SYNC (native - no custom loop to avoid mobile jank)
   ------------------------------------------------------- */
-  let scrollTarget = 0;
-  let scrollCurrent = 0;
-  const SCROLL_EASE = 0.072;
+  // Use native scroll on mobile for smooth performance.
+  // On desktop only, add a gentle wheel multiplier.
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+                   window.matchMedia('(pointer: coarse)').matches;
 
-  function smoothScrollLoop() {
-    const diff = scrollTarget - scrollCurrent;
-    if (Math.abs(diff) < 0.5) {
-      scrollCurrent = scrollTarget;
-    } else {
-      scrollCurrent += diff * SCROLL_EASE;
+  let scrollTarget = sceneMain.scrollTop;
+
+  if (!isMobile) {
+    // Desktop: gentle wheel acceleration
+    let scrollCurrent = 0;
+    const SCROLL_EASE = 0.10;
+
+    function smoothScrollLoop() {
+      const diff = scrollTarget - scrollCurrent;
+      if (Math.abs(diff) < 0.5) {
+        scrollCurrent = scrollTarget;
+      } else {
+        scrollCurrent += diff * SCROLL_EASE;
+      }
+      sceneMain.scrollTop = scrollCurrent;
+      requestAnimationFrame(smoothScrollLoop);
     }
-    sceneMain.scrollTop = scrollCurrent;
-    requestAnimationFrame(smoothScrollLoop);
+
+    sceneMain.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      scrollTarget = Math.max(0, Math.min(
+        scrollTarget + e.deltaY * 1.05,
+        sceneMain.scrollHeight - sceneMain.clientHeight
+      ));
+    }, { passive: false });
+
+    sceneMain.addEventListener('scroll', () => {
+      if (Math.abs(sceneMain.scrollTop - scrollCurrent) > 80) {
+        scrollCurrent = sceneMain.scrollTop;
+        scrollTarget = sceneMain.scrollTop;
+      }
+    });
+
+    smoothScrollLoop();
   }
-
-  sceneMain.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    scrollTarget = Math.max(0, Math.min(
-      scrollTarget + e.deltaY * 1.1,
-      sceneMain.scrollHeight - sceneMain.clientHeight
-    ));
-  }, { passive: false });
-
-  // Sync on any programmatic scroll (e.g. touch/swipe natively scrolling container)
-  sceneMain.addEventListener('scroll', () => {
-    if (Math.abs(sceneMain.scrollTop - scrollCurrent) > 80) {
-      scrollCurrent = sceneMain.scrollTop;
-      scrollTarget = sceneMain.scrollTop;
-    }
-  });
-
-  smoothScrollLoop();
+  // On mobile: do nothing — browser handles scroll natively (fast & smooth)
 
   /* -------------------------------------------------------
      SMOOTH ANCHOR NAVIGATION (Floral Flurry Screen Sweep)
@@ -480,14 +489,21 @@
   createAmbientParticles();
 
   /* -------------------------------------------------------
-     PETAL PARALLAX on hero flower
+     PETAL PARALLAX on hero flower (desktop only)
   ------------------------------------------------------- */
   const heroFlower = document.querySelector('.hero-flower-big');
-  if (heroFlower) {
+  if (heroFlower && !isMobile) {
+    let ticking = false;
     sceneMain.addEventListener('scroll', () => {
-      const scrollY = sceneMain.scrollTop;
-      heroFlower.style.transform = `translateY(${scrollY * 0.08}px) rotate(${scrollY * 0.02}deg)`;
-    });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = sceneMain.scrollTop;
+          heroFlower.style.transform = `translateY(${scrollY * 0.06}px) rotate(${scrollY * 0.015}deg)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   }
 
   /* -------------------------------------------------------
@@ -510,18 +526,12 @@
   });
 
   /* -------------------------------------------------------
-     HEADER FLOWER CONTINUOUS ROTATION
+     HEADER FLOWER CONTINUOUS ROTATION (CSS animation — no JS RAF)
   ------------------------------------------------------- */
-  let hfAngle = 0;
-  function animateHeaderFlower() {
-    hfAngle += 0.15;
-    if (headerFlower) {
-      const svg = headerFlower.querySelector('svg');
-      if (svg) svg.style.transform = `rotate(${hfAngle}deg)`;
-    }
-    requestAnimationFrame(animateHeaderFlower);
+  if (headerFlower) {
+    const svg = headerFlower.querySelector('svg');
+    if (svg) svg.classList.add('css-spin');
   }
-  animateHeaderFlower();
 
   /* -------------------------------------------------------
      START INTRO ANIMATION

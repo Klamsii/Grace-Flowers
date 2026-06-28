@@ -980,6 +980,60 @@ body {
   to { transform: rotate(360deg); }
 }
 
+/* CSS rotation for header flower (replaces JS rAF loop) */
+.css-spin {
+  animation: aboutFlowerSpin 12s linear infinite;
+  transform-origin: center;
+}
+
+/* -------------------------------------------------------
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Disable heavy effects on touch devices to prevent scroll jank
+------------------------------------------------------- */
+@media (pointer: coarse), (max-width: 768px) {
+  /* Disable backdrop-filter — very GPU-heavy on mobile */
+  header,
+  .header.scrolled,
+  .modal-overlay,
+  .btn-product-buy,
+  .product-footer {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Disable ambient particle animations on mobile */
+  .ambient-particles {
+    display: none !important;
+  }
+
+  /* Reduce/disable heavy continuous animations on mobile */
+  .about-flower-deco {
+    animation: none !important;
+  }
+
+  /* Use native scroll on mobile — no overflow tricks */
+  .scene-main {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
+
+  /* Disable card tilt — it causes layout thrashing on touch */
+  .catalog-card {
+    transform: none !important;
+    transition: box-shadow 0.2s ease !important;
+  }
+
+  /* Reduce transition complexity */
+  .reveal-on-scroll {
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+  }
+
+  /* Disable floating badge animation */
+  .card-badge {
+    animation: none !important;
+  }
+}
+
 .about-badge {
   position: absolute;
   bottom: 30px;
