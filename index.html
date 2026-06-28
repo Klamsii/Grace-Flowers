@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grace Flowers — Цветы в Алматы | Доставка</title>
+  <meta name="description" content="Grace Flowers — премиальный цветочный бутик в Алматы. Розы, букеты, мишки из цветов с доставкой. @grace.flowwers" />
+  <meta name="keywords" content="цветы Алматы, доставка цветов, букеты, розы, Grace Flowers" />
+  <meta property="og:title" content="Grace Flowers — Цветы в Алматы" />
+  <meta property="og:description" content="Премиальный цветочный бутик. Розы, букеты, доставка." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== SCENE 1: INTRO SPLASH ===== -->
+  <div id="scene-intro" class="scene active">
+    <div class="intro-container">
+      <div class="logo-animation" id="logoAnimation">
+        <div class="logo-row" id="logoRow">
+          <span class="logo-char" id="char-G" data-final="G">G</span>
+          <span class="logo-char" id="char-R" data-final="R">R</span>
+          <!-- SVG Flower replaces the "O" -->
+          <span class="logo-flower-wrap" id="logoFlower">
+            <svg id="flowerSvg" class="flower-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Petals -->
+              <g id="petalsGroup">
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(0, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(45, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(90, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(135, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(180, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(225, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(270, 50, 50)" />
+                <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(315, 50, 50)" />
+                <!-- Inner petals -->
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(22, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(67, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(112, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(157, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(202, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(247, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(292, 50, 50)" />
+                <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(337, 50, 50)" />
+              </g>
+              <!-- Center gem -->
+              <circle class="flower-center" cx="50" cy="50" r="10" />
+              <circle class="flower-center-shine" cx="46" cy="46" r="4" />
+            </svg>
+          </span>
+          <span class="logo-char" id="char-C" data-final="C">C</span>
+          <span class="logo-char" id="char-E" data-final="E">E</span>
+        </div>
+        <div class="logo-subtitle" id="logoSubtitle">
+          <span class="subtitle-char" id="sub-f" data-final="f">f</span>
+          <span class="subtitle-char" id="sub-l" data-final="l">l</span>
+          <span class="subtitle-char" id="sub-o" data-final="o">o</span>
+          <span class="subtitle-char" id="sub-w" data-final="w">w</span>
+          <span class="subtitle-char" id="sub-e" data-final="e">e</span>
+          <span class="subtitle-char" id="sub-r" data-final="r">r</span>
+          <span class="subtitle-char" id="sub-s" data-final="s">s</span>
+        </div>
+      </div>
+      <div class="click-hint" id="clickHint">
+        <span>нажмите чтобы продолжить</span>
+      </div>
+    </div>
+
+    <!-- Music control -->
+    <button class="music-btn" id="musicBtn" title="Включить/выключить музыку">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path id="musicIcon" d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/>
+      </svg>
+    </button>
+
+    <!-- Hidden audio element -->
+    <audio id="bgMusic" loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <!-- ===== SCENE 2: MAIN PAGE ===== -->
+  <div id="scene-main" class="scene" aria-hidden="true">
+
+    <!-- Floating flower header decoration -->
+    <div class="header-flower-wrap" id="headerFlower">
+      <svg id="headerFlowerSvg" class="header-flower-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g id="headerPetalsGroup">
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(0, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(45, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(90, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(135, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(180, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(225, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(270, 50, 50)" />
+          <ellipse class="petal" cx="50" cy="28" rx="11" ry="22" transform="rotate(315, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(22, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(67, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(112, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(157, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(202, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(247, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(292, 50, 50)" />
+          <ellipse class="petal-inner" cx="50" cy="34" rx="7" ry="16" transform="rotate(337, 50, 50)" />
+        </g>
+        <circle class="flower-center" cx="50" cy="50" r="10" />
+        <circle class="flower-center-shine" cx="46" cy="46" r="4" />
+      </svg>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-brand">
+        <span class="nav-logo-text">GR<span class="nav-flower">✿</span>CE</span>
+        <span class="nav-sub">flowers</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Главная</a></li>
+        <li><a href="#catalog">Каталог</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#gallery">Галерея</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="nav-instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        @grace.flowwers
+      </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-content">
+        <p class="hero-tagline">Алматы · Казахстан</p>
+        <h1 class="hero-title">
+          Красота,<br/>
+          <em>рождённая</em><br/>
+          природой
+        </h1>
+        <p class="hero-desc">Премиальные цветочные композиции с доставкой по Алматы. Каждый букет — это история, рассказанная лепестками.</p>
+        <div class="hero-actions">
+          <a href="#catalog" class="btn-primary">Смотреть каталог</a>
+          <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="btn-secondary">Instagram</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">3K+</span>
+            <span class="stat-label">подписчиков</span>
+          </div>
+          <div class="stat-div"></div>
+          <div class="stat">
+            <span class="stat-num">42</span>
+            <span class="stat-label">публикации</span>
+          </div>
+          <div class="stat-div"></div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">свежесть</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-circle-outer">
+          <div class="hero-circle-inner">
+            <svg class="hero-flower-big" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="petalGrad" cx="50%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#e8f0f5" />
+                  <stop offset="50%" stop-color="#b8cdd8" />
+                  <stop offset="100%" stop-color="#7a9ab0" />
+                </radialGradient>
+                <radialGradient id="centerGrad" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="40%" stop-color="#c5d8e8" />
+                  <stop offset="100%" stop-color="#5a8090" />
+                </radialGradient>
+                <filter id="petalBlur">
+                  <feGaussianBlur stdDeviation="0.5" />
+                </filter>
+              </defs>
+              <g transform="translate(100,100)">
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(0)" opacity="0.9"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(40)" opacity="0.85"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(80)" opacity="0.9"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(120)" opacity="0.85"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(160)" opacity="0.9"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(200)" opacity="0.85"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(240)" opacity="0.9"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(280)" opacity="0.85"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-55" rx="22" ry="42" transform="rotate(320)" opacity="0.9"/>
+                <!-- inner -->
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(20)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(60)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(100)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(140)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(180)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(220)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(260)" opacity="0.8"/>
+                <ellipse fill="url(#petalGrad)" cx="0" cy="-38" rx="14" ry="30" transform="rotate(300)" opacity="0.8"/>
+                <!-- center -->
+                <circle fill="url(#centerGrad)" cx="0" cy="0" r="22" />
+                <circle fill="rgba(255,255,255,0.7)" cx="-7" cy="-7" r="8" />
+                <circle fill="rgba(255,255,255,0.9)" cx="-9" cy="-9" r="4" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATALOG SECTION -->
+    <section id="catalog" class="catalog">
+      <div class="section-header">
+        <span class="section-label">Наши предложения</span>
+        <h2 class="section-title">Каталог</h2>
+        <p class="section-desc">Выберите идеальный букет для любого момента</p>
+      </div>
+      <div class="catalog-grid">
+        <div class="catalog-card" id="card-roses">
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg1" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#e8f0f5"/><stop offset="100%" stop-color="#7a9ab0"/></radialGradient></defs>
+              <g transform="translate(40,40)">
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(0)" opacity="0.9"/>
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(60)" opacity="0.85"/>
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(120)" opacity="0.9"/>
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(180)" opacity="0.85"/>
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(240)" opacity="0.9"/>
+                <ellipse fill="url(#rg1)" cx="0" cy="-22" rx="9" ry="18" transform="rotate(300)" opacity="0.85"/>
+                <circle fill="#cddce8" cx="0" cy="0" r="9"/>
+                <circle fill="rgba(255,255,255,0.8)" cx="-3" cy="-3" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="card-title">Розы</h3>
+          <p class="card-desc">Классические и редкие сорта роз. Монобукеты и авторские композиции.</p>
+          <span class="card-tag">от 5 000 ₸</span>
+        </div>
+
+        <div class="catalog-card featured" id="card-bouquets">
+          <div class="card-badge">Популярное</div>
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg2" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#f0f5f8"/><stop offset="100%" stop-color="#8fa8b8"/></radialGradient></defs>
+              <g transform="translate(40,40)">
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(0)" opacity="0.9"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(45)" opacity="0.85"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(90)" opacity="0.9"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(135)" opacity="0.85"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(180)" opacity="0.9"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(225)" opacity="0.85"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(270)" opacity="0.9"/>
+                <ellipse fill="url(#rg2)" cx="0" cy="-20" rx="8" ry="17" transform="rotate(315)" opacity="0.85"/>
+                <circle fill="#b8cdd8" cx="0" cy="0" r="9"/>
+                <circle fill="rgba(255,255,255,0.9)" cx="-3" cy="-3" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="card-title">Авторские букеты</h3>
+          <p class="card-desc">Уникальные авторские букеты от наших флористов. Каждый — произведение искусства.</p>
+          <span class="card-tag">от 12 000 ₸</span>
+        </div>
+
+        <div class="catalog-card" id="card-bears">
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg3" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#e0ecf4"/><stop offset="100%" stop-color="#6890a8"/></radialGradient></defs>
+              <circle fill="url(#rg3)" cx="40" cy="40" r="18"/>
+              <circle fill="url(#rg3)" cx="26" cy="28" r="10"/>
+              <circle fill="url(#rg3)" cx="54" cy="28" r="10"/>
+              <circle fill="rgba(255,255,255,0.6)" cx="35" cy="37" r="6"/>
+              <circle fill="rgba(255,255,255,0.9)" cx="33" cy="35" r="3"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Мишки из цветов</h3>
+          <p class="card-desc">Очаровательные медведи из живых цветов — идеальный подарок для любимых.</p>
+          <span class="card-tag">от 18 000 ₸</span>
+        </div>
+
+        <div class="catalog-card" id="card-exotic">
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg4" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#dceaf2"/><stop offset="100%" stop-color="#5c8098"/></radialGradient></defs>
+              <g transform="translate(40,40)">
+                <ellipse fill="url(#rg4)" cx="0" cy="-22" rx="7" ry="20" transform="rotate(0)" opacity="0.9"/>
+                <ellipse fill="url(#rg4)" cx="0" cy="-22" rx="7" ry="20" transform="rotate(72)" opacity="0.85"/>
+                <ellipse fill="url(#rg4)" cx="0" cy="-22" rx="7" ry="20" transform="rotate(144)" opacity="0.9"/>
+                <ellipse fill="url(#rg4)" cx="0" cy="-22" rx="7" ry="20" transform="rotate(216)" opacity="0.85"/>
+                <ellipse fill="url(#rg4)" cx="0" cy="-22" rx="7" ry="20" transform="rotate(288)" opacity="0.9"/>
+                <circle fill="#a8c4d8" cx="0" cy="0" r="9"/>
+                <circle fill="rgba(255,255,255,0.8)" cx="-3" cy="-3" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="card-title">Экзотика</h3>
+          <p class="card-desc">Орхидеи, пионы, протеи и другие редкие цветы со всего мира.</p>
+          <span class="card-tag">от 8 000 ₸</span>
+        </div>
+
+        <div class="catalog-card" id="card-wedding">
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg5" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#f5f8fa"/><stop offset="100%" stop-color="#9ab5c5"/></radialGradient></defs>
+              <g transform="translate(40,40)">
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(0)" opacity="0.9"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(51.4)" opacity="0.85"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(102.8)" opacity="0.9"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(154.3)" opacity="0.85"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(205.7)" opacity="0.9"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(257.1)" opacity="0.85"/>
+                <ellipse fill="url(#rg5)" cx="0" cy="-20" rx="10" ry="18" transform="rotate(308.5)" opacity="0.9"/>
+                <circle fill="#c8dce8" cx="0" cy="0" r="9"/>
+                <circle fill="rgba(255,255,255,0.9)" cx="-3" cy="-3" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="card-title">Свадебные</h3>
+          <p class="card-desc">Свадебные букеты, оформление зала и столов. Всё для вашего идеального дня.</p>
+          <span class="card-tag">от 30 000 ₸</span>
+        </div>
+
+        <div class="catalog-card" id="card-subscription">
+          <div class="card-icon">
+            <svg viewBox="0 0 80 80" class="product-flower">
+              <defs><radialGradient id="rg6" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#e4eef4"/><stop offset="100%" stop-color="#7298ad"/></radialGradient></defs>
+              <rect x="15" y="30" width="50" height="32" rx="4" fill="none" stroke="url(#rg6)" stroke-width="2.5"/>
+              <rect x="25" y="22" width="8" height="14" rx="3" fill="none" stroke="url(#rg6)" stroke-width="2.5"/>
+              <rect x="47" y="22" width="8" height="14" rx="3" fill="none" stroke="url(#rg6)" stroke-width="2.5"/>
+              <line x1="15" y1="44" x2="65" y2="44" stroke="url(#rg6)" stroke-width="2"/>
+              <circle cx="31" cy="54" r="3" fill="url(#rg6)" opacity="0.7"/>
+              <circle cx="40" cy="54" r="3" fill="url(#rg6)"/>
+              <circle cx="49" cy="54" r="3" fill="url(#rg6)" opacity="0.7"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Подписка</h3>
+          <p class="card-desc">Регулярная доставка свежих цветов. Еженедельно или ежемесячно — по вашему выбору.</p>
+          <span class="card-tag">от 25 000 ₸/мес</span>
+        </div>
+      </div>
+      <div class="catalog-cta">
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="btn-primary">Заказать в Instagram</a>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+      <div class="about-content">
+        <div class="about-visual">
+          <div class="about-flower-frame">
+            <svg class="about-flower-deco" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="abg1" cx="35%" cy="30%" r="65%">
+                  <stop offset="0%" stop-color="#e8f0f5"/>
+                  <stop offset="100%" stop-color="#7a9ab0"/>
+                </radialGradient>
+              </defs>
+              <g transform="translate(150,150)">
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(0)" opacity="0.8"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(36)" opacity="0.75"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(72)" opacity="0.8"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(108)" opacity="0.75"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(144)" opacity="0.8"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(180)" opacity="0.75"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(216)" opacity="0.8"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(252)" opacity="0.75"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(288)" opacity="0.8"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-70" rx="28" ry="55" transform="rotate(324)" opacity="0.75"/>
+                <!-- inner petals -->
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(18)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(54)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(90)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(126)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(162)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(198)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(234)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(270)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(306)" opacity="0.7"/>
+                <ellipse fill="url(#abg1)" cx="0" cy="-48" rx="18" ry="36" transform="rotate(342)" opacity="0.7"/>
+                <circle fill="#cddce8" cx="0" cy="0" r="28"/>
+                <circle fill="rgba(255,255,255,0.8)" cx="-8" cy="-8" r="14"/>
+                <circle fill="rgba(255,255,255,0.95)" cx="-12" cy="-12" r="7"/>
+              </g>
+            </svg>
+            <div class="about-badge">✦ с любовью к цветам</div>
+          </div>
+        </div>
+        <div class="about-text">
+          <span class="section-label">О нас</span>
+          <h2 class="section-title">Искусство<br/>флористики</h2>
+          <p class="about-para">Grace Flowers — это больше, чем цветочный магазин. Это место, где каждый букет создаётся с душой, где красота природы встречается с талантом флористов.</p>
+          <p class="about-para">Мы работаем с лучшими поставщиками Казахстана и Европы, чтобы предложить вам самые свежие цветы. От нежной розы до экзотической орхидеи — всё это с доставкой по Алматы.</p>
+          <ul class="about-features">
+            <li>
+              <span class="feature-icon">◈</span>
+              <div>
+                <strong>Свежесть</strong>
+                <span>Цветы поступают ежедневно</span>
+              </div>
+            </li>
+            <li>
+              <span class="feature-icon">◈</span>
+              <div>
+                <strong>Быстрая доставка</strong>
+                <span>По всему Алматы за 2–3 часа</span>
+              </div>
+            </li>
+            <li>
+              <span class="feature-icon">◈</span>
+              <div>
+                <strong>Авторский дизайн</strong>
+                <span>Каждый букет — уникален</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY / INSTAGRAM SECTION -->
+    <section id="gallery" class="gallery">
+      <div class="section-header">
+        <span class="section-label">@grace.flowwers</span>
+        <h2 class="section-title">Instagram</h2>
+        <p class="section-desc">Наши работы — живые, нежные, неповторимые</p>
+      </div>
+      <div class="gallery-grid">
+        <!-- Gallery cells with flower illustrations -->
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi1">
+          <div class="gallery-flower-bg gf1"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item tall" id="gi2">
+          <div class="gallery-flower-bg gf2"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi3">
+          <div class="gallery-flower-bg gf3"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item wide" id="gi4">
+          <div class="gallery-flower-bg gf4"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi5">
+          <div class="gallery-flower-bg gf5"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi6">
+          <div class="gallery-flower-bg gf6"></div>
+          <div class="gallery-overlay"><span>✦</span></div>
+        </a>
+      </div>
+      <div class="gallery-cta">
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          Смотреть все работы
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+      <div class="contact-inner">
+        <div class="section-header">
+          <span class="section-label">Связаться с нами</span>
+          <h2 class="section-title">Контакты</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card" id="cc-instagram">
+            <div class="contact-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <h3>Instagram</h3>
+            <a href="https://www.instagram.com/grace.flowwers/" target="_blank">@grace.flowwers</a>
+            <p>Пишите нам в Direct для заказа</p>
+          </div>
+          <div class="contact-card" id="cc-phone">
+            <div class="contact-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.94a16 16 0 0 0 6.29 6.29l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h3>Телефон</h3>
+            <a href="tel:+77001234567">+7 (700) 123-45-67</a>
+            <p>Ежедневно с 8:00 до 22:00</p>
+          </div>
+          <div class="contact-card" id="cc-location">
+            <div class="contact-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3>Адрес</h3>
+            <span>Алматы, Казахстан</span>
+            <p>Доставка по всему городу</p>
+          </div>
+        </div>
+        <div class="contact-tagline">
+          <p>Создайте момент, который запомнится навсегда ✦</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">GR✿CE</span>
+          <span class="footer-sub">flowers</span>
+        </div>
+        <p class="footer-copy">© 2025 Grace Flowers · Алматы, Казахстан</p>
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="footer-ig">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          @grace.flowwers
+        </a>
+      </div>
+    </footer>
+
+    <!-- Scroll music control -->
+    <button class="music-btn-main" id="musicBtnMain" title="Включить/выключить музыку">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path id="musicIconMain" d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/>
+      </svg>
+    </button>
+  </div><!-- /scene-main -->
+
+  <script src="script.js"></script>
+</body>
+</html>
