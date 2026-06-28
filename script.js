@@ -309,22 +309,8 @@
   }
 
   /* -------------------------------------------------------
-     SMOOTH ANCHOR NAVIGATION
-  ------------------------------------------------------- */
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  /* -------------------------------------------------------
      SMOOTH SCROLL (enhanced momentum for scene-main)
   ------------------------------------------------------- */
-  let isScrolling = false;
   let scrollTarget = 0;
   let scrollCurrent = 0;
   const SCROLL_EASE = 0.072;
@@ -348,7 +334,7 @@
     ));
   }, { passive: false });
 
-  // Sync on any programmatic scroll
+  // Sync on any programmatic scroll (e.g. touch/swipe natively scrolling container)
   sceneMain.addEventListener('scroll', () => {
     if (Math.abs(sceneMain.scrollTop - scrollCurrent) > 80) {
       scrollCurrent = sceneMain.scrollTop;
@@ -357,6 +343,28 @@
   });
 
   smoothScrollLoop();
+
+  /* -------------------------------------------------------
+     SMOOTH ANCHOR NAVIGATION (Custom JS Animation to avoid Safari conflicts)
+  ------------------------------------------------------- */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        // Calculate offset inside the custom fixed scrolling container
+        const targetOffset = target.getBoundingClientRect().top + sceneMain.scrollTop - sceneMain.getBoundingClientRect().top;
+        // Adjust for navbar height
+        const navbarHeight = navbar ? navbar.clientHeight : 70;
+        scrollTarget = Math.max(0, Math.min(
+          targetOffset - navbarHeight + 5,
+          sceneMain.scrollHeight - sceneMain.clientHeight
+        ));
+      }
+    });
+  });
 
   /* -------------------------------------------------------
      AMBIENT FLOATING PETALS on background
