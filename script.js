@@ -22,10 +22,7 @@
   const sceneMain  = document.getElementById('scene-main');
   const logoFlower  = document.getElementById('logoFlower');
   const clickHint   = document.getElementById('clickHint');
-  const bgMusic     = document.getElementById('bgMusic');
   const wooshSound  = document.getElementById('wooshSound');
-  const musicBtn    = document.getElementById('musicBtn');
-  const musicBtnMain = document.getElementById('musicBtnMain');
   const headerFlower = document.getElementById('headerFlower');
 
   const mainChars     = ['char-G','char-R','char-C','char-E'];
@@ -33,8 +30,7 @@
 
   let introComplete  = false;
   let transitioning  = false;
-  let musicPlaying   = false;
-  let musicMuted     = false;
+
 
   /* -------------------------------------------------------
      UTILITY: random symbol
@@ -184,8 +180,6 @@
   ------------------------------------------------------- */
   sceneIntro.addEventListener('click', () => {
     if (introComplete && !transitioning) {
-      // Start music on first interaction (browser policy)
-      tryPlayMusic();
       transitionToMain();
     }
   });
@@ -193,71 +187,11 @@
   sceneIntro.addEventListener('touchend', (e) => {
     e.preventDefault();
     if (introComplete && !transitioning) {
-      tryPlayMusic();
       transitionToMain();
     }
   });
 
-  /* -------------------------------------------------------
-     MUSIC
-  ------------------------------------------------------- */
-  // Use a royalty-free ambient/nature track
-  // We'll try multiple sources in order
-  const MUSIC_SOURCES = [
-    'https://cdn.pixabay.com/audio/2022/11/17/audio_febc508520.mp3',
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-  ];
 
-  bgMusic.src = MUSIC_SOURCES[0];
-  bgMusic.volume = 0.015; // Extremely low, ambient volume
-
-  function tryPlayMusic() {
-    if (musicPlaying) return;
-    bgMusic.play().then(() => {
-      musicPlaying = true;
-      updateMusicButtons(true);
-    }).catch(() => {
-      // Try next source
-      bgMusic.src = MUSIC_SOURCES[1];
-      bgMusic.play().then(() => {
-        musicPlaying = true;
-        updateMusicButtons(true);
-      }).catch(() => {});
-    });
-  }
-
-  function updateMusicButtons(playing) {
-    const btns = [musicBtn, musicBtnMain];
-    btns.forEach(btn => {
-      if (!btn) return;
-      btn.classList.toggle('muted', !playing);
-      btn.title = playing ? 'Выключить музыку' : 'Включить музыку';
-    });
-  }
-
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleMusic();
-  });
-
-  if (musicBtnMain) {
-    musicBtnMain.addEventListener('click', () => toggleMusic());
-  }
-
-  function toggleMusic() {
-    if (!musicPlaying) {
-      tryPlayMusic();
-    } else {
-      musicMuted = !musicMuted;
-      if (musicMuted) {
-        bgMusic.pause();
-        updateMusicButtons(false);
-      } else {
-        bgMusic.play();
-        updateMusicButtons(true);
-      }
-    }
-  }
 
   /* -------------------------------------------------------
      SCROLL REVEAL

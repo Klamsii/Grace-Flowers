@@ -231,29 +231,7 @@ body {
   50% { opacity: 1; }
 }
 
-/* Music button (intro) */
-.music-btn {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  background: rgba(176, 196, 208, 0.12);
-  border: 1px solid rgba(176, 196, 208, 0.3);
-  border-radius: var(--radius-pill);
-  color: var(--crystal-dark);
-  cursor: pointer;
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, border-color 0.3s;
-  backdrop-filter: blur(8px);
-  z-index: 200;
-}
 
-.music-btn:hover {
-  background: rgba(176, 196, 208, 0.22);
-  border-color: var(--crystal);
-}
 
 /* =========================================
    TRANSITION ANIMATIONS
@@ -1457,34 +1435,7 @@ body {
   color: var(--deep);
 }
 
-/* Music button (main) */
-.music-btn-main {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  background: rgba(45, 69, 85, 0.85);
-  border: 1px solid rgba(176, 196, 208, 0.3);
-  border-radius: var(--radius-pill);
-  color: var(--crystal-light);
-  cursor: pointer;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  backdrop-filter: blur(8px);
-  z-index: 200;
-  box-shadow: 0 4px 20px rgba(45, 69, 85, 0.25);
-}
 
-.music-btn-main:hover {
-  background: rgba(45, 69, 85, 0.95);
-  transform: scale(1.05);
-}
-
-.music-btn-main.muted svg {
-  opacity: 0.4;
-}
 
 /* =========================================
    SCROLL ANIMATIONS
