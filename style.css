@@ -41,6 +41,7 @@ body {
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* =========================================
@@ -66,6 +67,7 @@ body {
   overflow-x: hidden;
   opacity: 0;
   pointer-events: none;
+  scroll-behavior: auto; /* controlled by JS smooth scroll */
 }
 
 #scene-main.active {
@@ -917,73 +919,180 @@ body {
   background: linear-gradient(90deg, transparent, rgba(176, 196, 208, 0.3), transparent);
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 260px);
-  gap: 16px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.gallery-item {
-  border-radius: var(--radius);
-  overflow: hidden;
+.gallery-collage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto 100px;
+  padding: 0 20px;
   position: relative;
-  cursor: pointer;
-  display: block;
+  z-index: 2;
+}
+
+.collage-item {
+  position: relative;
+  width: 32%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  border: 1px solid rgba(176, 196, 208, 0.15);
+  color: inherit;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
-.gallery-item.tall {
-  grid-row: span 2;
+.collage-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4.2;
+  overflow: hidden;
+  background: var(--bg-alt);
+  box-shadow: 0 12px 35px rgba(90, 120, 136, 0.15);
+  transition: filter 0.5s ease, box-shadow 0.5s ease;
 }
 
-.gallery-item.wide {
-  grid-column: span 2;
-}
-
-.gallery-flower-bg {
+.collage-img-wrap img {
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gallery-item:hover .gallery-flower-bg {
-  transform: scale(1.05);
+/* Shape Cutouts (Environmental / Houses theme) */
+.shape-arch .collage-img-wrap {
+  /* Classic rounded archway */
+  border-radius: 180px 180px 24px 24px;
 }
 
-/* Gallery backgrounds — subtle gradients with flower patterns */
-.gf1 { background: radial-gradient(ellipse at 40% 30%, #c8d8e4 0%, #a0b8c8 40%, #7890a0 100%); }
-.gf2 { background: radial-gradient(ellipse at 60% 40%, #d0dce8 0%, #a8bcc8 40%, #6888a0 100%); }
-.gf3 { background: radial-gradient(ellipse at 50% 50%, #c4d4e0 0%, #98b0c0 40%, #708898 100%); }
-.gf4 { background: radial-gradient(ellipse at 30% 60%, #ccd8e4 0%, #a4b8c4 40%, #7898a8 100%); }
-.gf5 { background: radial-gradient(ellipse at 70% 30%, #c0d0dc 0%, #9cb0bc 40%, #6c8898 100%); }
-.gf6 { background: radial-gradient(ellipse at 45% 55%, #c8d4e0 0%, #a0b4c0 40%, #74909c 100%); }
+.shape-house .collage-img-wrap {
+  /* Gabled house silhouette inspired by reference image */
+  clip-path: polygon(
+    0% 100%, 
+    0% 32%, 
+    20% 32%, 
+    20% 12%, 
+    50% 0%, 
+    80% 12%, 
+    80% 32%, 
+    100% 32%, 
+    100% 100%
+  );
+}
 
-.gallery-overlay {
+.shape-portal .collage-img-wrap {
+  /* Gothic Portal / pointed window shape */
+  clip-path: polygon(
+    0% 100%, 
+    0% 40%, 
+    15% 22%, 
+    50% 0%, 
+    85% 22%, 
+    100% 40%, 
+    100% 100%
+  );
+}
+
+/* Hover Zoom & Elevation */
+.collage-item:hover {
+  transform: translateY(-10px);
+}
+
+.collage-item:hover .collage-img-wrap {
+  box-shadow: 0 24px 50px rgba(90, 120, 136, 0.28);
+}
+
+.collage-item:hover img {
+  transform: scale(1.08);
+}
+
+/* Labels below shapes */
+.collage-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.info-tag {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--crystal-dark);
+  text-transform: uppercase;
+}
+
+.info-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--deep);
+  letter-spacing: 0.02em;
+}
+
+/* Stagger positions for premium editorial layout */
+.shape-arch {
+  margin-bottom: 50px;
+}
+
+.shape-house {
+  margin-bottom: -30px;
+}
+
+.shape-portal {
+  margin-bottom: 20px;
+}
+
+/* Decorative Vertical Text */
+.collage-vert-text {
   position: absolute;
-  inset: 0;
-  background: rgba(45, 69, 85, 0);
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Floating badge for central house piece */
+.cp-float-badge {
+  position: absolute;
+  top: 45%;
+  right: -25px;
+  background: var(--white);
+  border: 1px solid rgba(176, 196, 208, 0.25);
+  color: var(--deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 50%;
+  width: 76px;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(90, 120, 136, 0.12);
+  z-index: 10;
+  pointer-events: none;
+  animation: badgeFloat 6s ease-in-out infinite;
 }
 
-.gallery-overlay span {
-  font-size: 28px;
-  color: rgba(255,255,255,0);
-  transition: color 0.3s;
-}
-
-.gallery-item:hover .gallery-overlay {
-  background: rgba(45, 69, 85, 0.25);
-}
-
-.gallery-item:hover .gallery-overlay span {
-  color: rgba(255,255,255,0.8);
+@keyframes badgeFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
 }
 
 .gallery-cta {
@@ -1188,12 +1297,64 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Small detail elements — subtler entrance */
+.reveal-detail {
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-detail.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* =========================================
+   AMBIENT FLOATING PARTICLES
+   ========================================= */
+.ambient-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.amb-particle {
+  position: absolute;
+  top: 110%;
+  color: var(--crystal-dark);
+  animation: ambFloat linear infinite;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes ambFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% { opacity: 1; }
+  85% { opacity: 0.7; }
+  95% {
+    opacity: 0;
+    transform: translateY(-120vh) translateX(30px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(-130vh) translateX(40px) rotate(200deg);
+    opacity: 0;
+  }
 }
 
 /* =========================================
@@ -1227,14 +1388,22 @@ body {
   .about-features li {
     justify-content: center;
   }
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+  .gallery-collage {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
   }
-  .gallery-item.tall,
-  .gallery-item.wide {
-    grid-row: span 1;
-    grid-column: span 1;
+  .collage-item {
+    width: 45%;
+    max-width: 320px;
+  }
+  .shape-arch, .shape-house, .shape-portal {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .collage-vert-text {
+    display: none;
   }
 }
 
@@ -1262,9 +1431,21 @@ body {
   .gallery {
     padding: 60px 24px;
   }
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+  .gallery-collage {
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+    margin: 30px auto;
+  }
+  .collage-item {
+    width: 90%;
+    max-width: 320px;
+  }
+  .cp-float-badge {
+    right: -10px;
+    width: 68px;
+    height: 68px;
+    font-size: 10px;
   }
   .contact {
     padding: 60px 24px;

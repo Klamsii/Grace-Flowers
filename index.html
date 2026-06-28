@@ -80,6 +80,10 @@
     <audio id="bgMusic" loop>
       <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
     </audio>
+    <!-- Woosh sound for flower fly animation -->
+    <audio id="wooshSound" preload="auto">
+      <source src="https://cdn.pixabay.com/audio/2022/01/18/audio_d0c6ff3de9.mp3" type="audio/mpeg" />
+    </audio>
   </div>
 
   <!-- ===== SCENE 2: MAIN PAGE ===== -->
@@ -426,33 +430,45 @@
         <h2 class="section-title">Instagram</h2>
         <p class="section-desc">Наши работы — живые, нежные, неповторимые</p>
       </div>
-      <div class="gallery-grid">
-        <!-- Gallery cells with flower illustrations -->
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi1">
-          <div class="gallery-flower-bg gf1"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
+
+      <!-- EDITORIAL COLLAGE SECTION -->
+      <div class="gallery-collage">
+        
+        <!-- Piece 1: Arch/Dome shape -->
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="collage-item shape-arch" id="cp1">
+          <div class="collage-img-wrap">
+            <img src="images/gallery1.jpg" alt="Grace Flowers — Букет роз с сердцем из ленты" />
+          </div>
+          <div class="collage-info">
+            <span class="info-tag">Свежая коллекция</span>
+            <h3 class="info-title">Романтика</h3>
+          </div>
         </a>
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item tall" id="gi2">
-          <div class="gallery-flower-bg gf2"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
+
+        <!-- Piece 2: House/Gabled shape (referencing user's image) -->
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="collage-item shape-house" id="cp2">
+          <div class="collage-img-wrap">
+            <img src="images/gallery2.jpg" alt="Grace Flowers — Роскошная корзина роз" />
+          </div>
+          <div class="collage-info">
+            <span class="info-tag">Эксклюзив</span>
+            <h3 class="info-title">Гармония</h3>
+          </div>
         </a>
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi3">
-          <div class="gallery-flower-bg gf3"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
+
+        <!-- Piece 3: Gothic portal/Cathedral shape -->
+        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="collage-item shape-portal" id="cp3">
+          <div class="collage-img-wrap">
+            <img src="images/gallery3.jpg" alt="Grace Flowers — Букет с короной" />
+          </div>
+          <div class="collage-info">
+            <span class="info-tag">Королевский выбор</span>
+            <h3 class="info-title">Триумф</h3>
+          </div>
         </a>
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item wide" id="gi4">
-          <div class="gallery-flower-bg gf4"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
-        </a>
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi5">
-          <div class="gallery-flower-bg gf5"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
-        </a>
-        <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="gallery-item" id="gi6">
-          <div class="gallery-flower-bg gf6"></div>
-          <div class="gallery-overlay"><span>✦</span></div>
-        </a>
+
       </div>
+
       <div class="gallery-cta">
         <a href="https://www.instagram.com/grace.flowwers/" target="_blank" class="btn-outline">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>

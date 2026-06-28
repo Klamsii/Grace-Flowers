@@ -23,6 +23,7 @@
   const logoFlower  = document.getElementById('logoFlower');
   const clickHint   = document.getElementById('clickHint');
   const bgMusic     = document.getElementById('bgMusic');
+  const wooshSound  = document.getElementById('wooshSound');
   const musicBtn    = document.getElementById('musicBtn');
   const musicBtnMain = document.getElementById('musicBtnMain');
   const headerFlower = document.getElementById('headerFlower');
@@ -142,10 +143,17 @@
 
     await delay(400);
 
-    // Move flower wrap upward
+    // Move flower wrap upward + play woosh
     logoFlower.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
     logoFlower.style.transform = 'translateY(-120vh) scale(1.4)';
     logoFlower.style.opacity = '0';
+
+    // Play woosh sound
+    if (wooshSound) {
+      wooshSound.volume = 0.55;
+      wooshSound.currentTime = 0;
+      wooshSound.play().catch(() => {});
+    }
 
     // Fade out scene intro
     sceneIntro.style.transition = 'opacity 0.7s ease';
@@ -201,7 +209,7 @@
   ];
 
   bgMusic.src = MUSIC_SOURCES[0];
-  bgMusic.volume = 0.35;
+  bgMusic.volume = 0.015; // Extremely low, ambient volume
 
   function tryPlayMusic() {
     if (musicPlaying) return;
@@ -256,7 +264,7 @@
   ------------------------------------------------------- */
   function setupScrollReveal() {
     const revealEls = document.querySelectorAll(
-      '.catalog-card, .about-content > *, .gallery-item, .contact-card, .section-header'
+      '.catalog-card, .about-content > *, .collage-item, .contact-card, .section-header'
     );
 
     revealEls.forEach((el, i) => {
@@ -274,6 +282,16 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     revealEls.forEach(el => observer.observe(el));
+
+    // Staggered fade-in for smaller detail elements
+    const detailEls = document.querySelectorAll(
+      '.feature-icon, .stat, .card-tag, .card-badge, .about-badge, .footer-logo, .footer-sub'
+    );
+    detailEls.forEach((el, i) => {
+      el.classList.add('reveal-detail');
+      el.style.transitionDelay = `${100 + (i % 5) * 60}ms`;
+      observer.observe(el);
+    });
   }
 
   /* -------------------------------------------------------
@@ -302,6 +320,76 @@
       }
     });
   });
+
+  /* -------------------------------------------------------
+     SMOOTH SCROLL (enhanced momentum for scene-main)
+  ------------------------------------------------------- */
+  let isScrolling = false;
+  let scrollTarget = 0;
+  let scrollCurrent = 0;
+  const SCROLL_EASE = 0.072;
+
+  function smoothScrollLoop() {
+    const diff = scrollTarget - scrollCurrent;
+    if (Math.abs(diff) < 0.5) {
+      scrollCurrent = scrollTarget;
+    } else {
+      scrollCurrent += diff * SCROLL_EASE;
+    }
+    sceneMain.scrollTop = scrollCurrent;
+    requestAnimationFrame(smoothScrollLoop);
+  }
+
+  sceneMain.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    scrollTarget = Math.max(0, Math.min(
+      scrollTarget + e.deltaY * 1.1,
+      sceneMain.scrollHeight - sceneMain.clientHeight
+    ));
+  }, { passive: false });
+
+  // Sync on any programmatic scroll
+  sceneMain.addEventListener('scroll', () => {
+    if (Math.abs(sceneMain.scrollTop - scrollCurrent) > 80) {
+      scrollCurrent = sceneMain.scrollTop;
+      scrollTarget = sceneMain.scrollTop;
+    }
+  });
+
+  smoothScrollLoop();
+
+  /* -------------------------------------------------------
+     AMBIENT FLOATING PETALS on background
+  ------------------------------------------------------- */
+  function createAmbientParticles() {
+    const container = document.createElement('div');
+    container.className = 'ambient-particles';
+    sceneMain.prepend(container);
+
+    const symbols = ['✿', '❀', '✦', '·', '◦', '✧'];
+    const count = 18;
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('span');
+      p.className = 'amb-particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const xPos = Math.random() * 100;
+      const delay = Math.random() * 14;
+      const duration = 14 + Math.random() * 18;
+      const size = 0.55 + Math.random() * 0.6;
+      const opacity = 0.04 + Math.random() * 0.09;
+      p.style.cssText = `
+        left: ${xPos}vw;
+        animation-delay: -${delay}s;
+        animation-duration: ${duration}s;
+        font-size: ${size}rem;
+        opacity: ${opacity};
+      `;
+      container.appendChild(p);
+    }
+  }
+
+  createAmbientParticles();
 
   /* -------------------------------------------------------
      PETAL PARALLAX on hero flower
