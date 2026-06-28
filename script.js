@@ -345,23 +345,103 @@
   smoothScrollLoop();
 
   /* -------------------------------------------------------
-     SMOOTH ANCHOR NAVIGATION (Custom JS Animation to avoid Safari conflicts)
+     SMOOTH ANCHOR NAVIGATION (Floral Flurry Screen Sweep)
   ------------------------------------------------------- */
+  const flowerTransition = document.getElementById('flower-transition');
+
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = link.getAttribute('href');
       if (targetId === '#') return;
       const target = document.querySelector(targetId);
-      if (target) {
-        // Calculate offset inside the custom fixed scrolling container
-        const targetOffset = target.getBoundingClientRect().top + sceneMain.scrollTop - sceneMain.getBoundingClientRect().top;
-        // Adjust for navbar height
-        const navbarHeight = navbar ? navbar.clientHeight : 70;
-        scrollTarget = Math.max(0, Math.min(
-          targetOffset - navbarHeight + 5,
-          sceneMain.scrollHeight - sceneMain.clientHeight
-        ));
+      
+      if (target && flowerTransition) {
+        // 1. Play woosh sound
+        if (wooshSound) {
+          wooshSound.volume = 0.45;
+          wooshSound.currentTime = 0;
+          wooshSound.play().catch(() => {});
+        }
+
+        // 2. Open overlay
+        flowerTransition.innerHTML = '';
+        flowerTransition.classList.add('active');
+
+        // Spawn central spinning vector flower logo
+        const logo = document.createElement('div');
+        logo.className = 'transition-logo';
+        logo.innerHTML = `
+          <svg viewBox="0 0 100 100" style="width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5;">
+            <g transform="translate(50,50)">
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(0)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(45)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(90)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(135)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(180)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(225)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(270)" />
+              <ellipse cx="0" cy="-28" rx="11" ry="22" transform="rotate(315)" />
+              <circle cx="0" cy="0" r="10" fill="currentColor" />
+            </g>
+          </svg>
+        `;
+        flowerTransition.appendChild(logo);
+
+        // 3. Spawn a sweep of flying flowers
+        const numFlowers = 28;
+        const symbols = ['✿', '❀', '❁', '🌸', '🌹', '✦', '✧', '❊'];
+
+        for (let i = 0; i < numFlowers; i++) {
+          setTimeout(() => {
+            const f = document.createElement('div');
+            f.className = 'flying-flower';
+            f.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+            // Spread start positions across the entire bottom edge
+            const startX = Math.random() * 100; // 0–100% of viewport width
+            f.style.left = `${startX}vw`;
+            f.style.bottom = `${-20 - Math.random() * 40}px`;
+
+            // Varied size and animation speed for natural look
+            f.style.fontSize = `${20 + Math.random() * 38}px`;
+            const dur = 0.9 + Math.random() * 0.5;
+            f.style.animationDuration = `${dur}s`;
+            f.style.animationDelay = `${Math.random() * 250}ms`;
+
+            // Sweet color mix: pink / crystal / white
+            const rnd = Math.random();
+            if (rnd > 0.65) {
+              f.style.color = '#e4aec5'; // pink
+            } else if (rnd > 0.3) {
+              f.style.color = '#b0c4d0'; // crystal
+            } else {
+              f.style.color = '#ffffff'; // white
+            }
+
+            flowerTransition.appendChild(f);
+            setTimeout(() => f.remove(), 1600);
+          }, i * 18);
+        }
+
+        // 4. Perform the programmatic scroll exactly at peak cover (500ms)
+        setTimeout(() => {
+          const targetOffset = target.getBoundingClientRect().top + sceneMain.scrollTop - sceneMain.getBoundingClientRect().top;
+          const navbarHeight = navbar ? navbar.clientHeight : 70;
+          
+          scrollTarget = Math.max(0, Math.min(
+            targetOffset - navbarHeight + 5,
+            sceneMain.scrollHeight - sceneMain.clientHeight
+          ));
+          // Instant sync so scrolling looks completely native
+          scrollCurrent = scrollTarget;
+          sceneMain.scrollTop = scrollTarget;
+        }, 500);
+
+        // 5. Hide overlay
+        setTimeout(() => {
+          flowerTransition.classList.remove('active');
+        }, 1100);
       }
     });
   });
